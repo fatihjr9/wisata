@@ -11,24 +11,25 @@
     <div class="py-6">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg w-96 mx-auto border border-slate-300">
-                <form action="{{ route('admin.wisata.store') }}" method="POST" enctype="multipart/form-data" class="p-4">
+                <form action="{{ route('admin.wisata.update.store') }}" method="POST" enctype="multipart/form-data" class="p-4">
                     @csrf
                     <div class="flex flex-col space-y-3">
                         <div class="flex flex-col space-y-1">
                             <p>Nama Wisata</p>
-                            <input type="text" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <input type="text" value="{{ $wisata->nama }}" name="nama" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <input type="text" value="{{ $wisata->id }}" name="id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         </div>
                         <div class="flex flex-col space-y-1">
                             <p>gambar Berita</p>
-                            <input type="file" multiple name="gambar[]" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <input type="file" multiple name="gambar[]" accept="image/*" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"  value="{{ $wisata->gambar }}" >
                         </div>
                         <div class="flex flex-col space-y-1">
                             <p>Lokasi</p>
-                            <input type="text" name="lokasi" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                            <input type="text" name="lokasi"  value="{{ $wisata->lokasi }}"  class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                         </div>
                         <div class="flex flex-col space-y-1">
                             <p>Deskripsi Wisata</p>
-                            <textarea name="deskripsi" id="" cols="30" rows="10" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+                            <textarea name="deskripsi" id="" cols="30" rows="10" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">{{ $wisata->deskripsi }}</textarea>
                         </div>
                     </div>
                     <button type="submit" class="mt-4 bg-black text-white rounded-lg w-full py-2">Tambahkan</button>

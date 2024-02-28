@@ -11,7 +11,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg border">
-                <table class="table">
+                <table class="w-full text-sm text-left rtl:text-right text-gray-500">
                     <thead>
                         <tr class="bg-gray-50">
                             <th class="px-6 py-3">No</th>
@@ -45,7 +45,7 @@
                                 </td>
                                 <td class="px-6 py-3">
                                     <div class=" flex flex-row items-center gap-x-2">
-                                        <a href="">Edit</a>
+                                        <a href="{{ route('admin.wisata.update', ['id' => $wisata->id]) }}">Edit</a>
                                         <form action="{{ route('admin.wisata.destroy', $wisata->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')

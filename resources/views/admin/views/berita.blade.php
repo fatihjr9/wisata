@@ -59,7 +59,7 @@
 
                                     <td class="px-6 py-3">
                                         <div class=" flex flex-row items-center gap-x-2">
-                                            <a href="{{ route('admin.berita.destroy', $berita->id) }}">Edit</a>
+                                            <a href="{{ route('admin.berita.update', $berita->id) }}">Edit</a>
                                             <a href="{{ route('admin.berita.destroy', $berita->id) }}">Delete</a>
                                         </div>
                                     </td>

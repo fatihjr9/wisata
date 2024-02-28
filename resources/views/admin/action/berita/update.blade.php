@@ -2,15 +2,11 @@
     <x-slot name="header">
         <div class="flex flex-row items-center gap-x-2 justify-between">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Tambah Berita') }}
+                {{ __('Update Berita') }}
             </h2>
-            <div class="button">
-                <a href="{{ route('admin.kategori.index') }}" target="_blank"
-                    class="bg-white text-black px-4 py-2 rounded-lg w-fit text-sm">Tambah Kategori</a>
-                <a href="{{ route('admin.kategori.index') }}" target="_blank"
-                    class="bg-black text-white px-4 py-2 rounded-lg w-fit text-sm">Kembali</a>
-                
-            </div>
+            <a href="{{ route('admin.berita.index') }}" target="_blank"
+                class="bg-black text-white px-4 py-2 rounded-lg w-fit text-sm">Kembali</a>
+           
         </div>
     </x-slot>
 
@@ -26,30 +22,38 @@
                         </ul>
                     </div>
                 @endif
-                <form action="{{ route('admin.berita.store') }}" method="POST" enctype="multipart/form-data"
+                <form action="{{ route('admin.berita.update.store') }}" method="POST" enctype="multipart/form-data"
                     class="p-4">
                     @csrf
                     <div class="flex flex-col space-y-3">
                         <div class="flex flex-col space-y-1">
                             <p>Judul Berita</p>
                             <input type="text" name="nama"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{ $berita->nama }}">
+                            <input type="hidden" name="id"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{ $berita->id }}">
                         </div>
                         <div class="flex flex-col space-y-1">
                             <p>gambar Berita</p>
                             <input type="file" multiple name="gambar[]" accept="image/*"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                value="{{ $berita->gambar }}">
                         </div>
                         <div class="flex flex-col space-y-1">
                             <p>deskripsi Berita</p>
                             <textarea name="deskripsi" id="" cols="30" rows="10"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"></textarea>
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">{{ $berita->deskripsi }}</textarea>
                         </div>
                         <div class="flex flex-col space-y-1">
                             <p>Kategori Wisata</p>
                             <select name="kategori_id" id="kategori_id" class="form-control">
+                                <option disabled selected>Pilih Kategori</option> <!-- Tambahkan ini -->
                                 @foreach ($kategori as $data)
-                                    <option value="{{ $data->id }}">{{ $data->nama_kategori }}</option>
+                                    <option value="{{ $data->id }}"
+                                        {{ $data->id == $berita->kategori_id ? 'selected' : '' }}>
+                                        {{ $data->nama_kategori }}</option>
                                 @endforeach
                             </select>
                         </div>

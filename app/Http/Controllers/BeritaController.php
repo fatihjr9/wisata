@@ -74,7 +74,57 @@ class BeritaController extends Controller
         return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil dihapus.');
     }
 
-    public function update($id) {
-        
+    public function update($id)
+    {
+        $berita = Berita::where('id', $id)->first();
+        $kategori = Kategori::all();
+        return view('admin.action.berita.update', compact('berita', 'kategori'));
+    }
+
+    public function updateStore(Request $request)
+    {
+        // Validasi data yang diterima dari formulir
+        $request->validate([
+            'nama' => 'required|string|max:255',
+            'deskripsi' => 'required|string',
+            'kategori_id' => 'required|exists:kategoris,id', // Pastikan kategorinya ada di database
+            'id' => 'required|exists:beritas,id', // Pastikan id berita yang akan diupdate ada di database
+        ]);
+
+        // Temukan berita berdasarkan ID
+        $berita = Berita::findOrFail($request->id);
+
+        // Proses file gambar jika ada yang diunggah
+        if ($request->hasFile('gambar')) {
+            // Validasi dan simpan gambar baru
+            $gambarPaths = [];
+            foreach ($request->file('gambar') as $gambar) {
+                $namaFile = pathinfo($gambar->getClientOriginalName(), PATHINFO_FILENAME); // Dapatkan nama file tanpa ekstensi
+                $ekstensi = $gambar->getClientOriginalExtension(); // Dapatkan ekstensi file
+                $namaFileBaru = $namaFile . '_' . time() . '.' . $ekstensi; // Generate nama baru dengan timestamp untuk mencegah nama yang sama
+                $gambarPath = $gambar->storeAs('gambar', $namaFileBaru, 'public'); // Simpan file dengan nama baru
+                $gambarPaths[] = $namaFileBaru; // Simpan nama file baru ke dalam array
+            }
+
+            // Hapus gambar lama
+            // Misalkan, kita menggunakan file storage public
+            foreach (explode(',', $berita->gambar) as $gambarLama) {
+                Storage::disk('public')->delete('gambar/' . $gambarLama);
+            }
+
+            // Simpan path gambar baru
+            $berita->gambar = implode(',', $gambarPaths);
+        }
+
+        // Update data berita
+        $berita->nama = $request->nama;
+        $berita->deskripsi = $request->deskripsi;
+        $berita->kategori_id = $request->kategori_id;
+
+        // Simpan perubahan
+        $berita->save();
+
+        // Redirect ke halaman yang sesuai
+        return redirect()->route('admin.berita.index')->with('success', 'Berita berhasil diperbarui.');
     }
 }
