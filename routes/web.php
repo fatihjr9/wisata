@@ -18,8 +18,12 @@ use App\Http\Controllers\KategoriController;
 |
 */
 Route::get('/', [ClientController::class,'index'])->name('client.index');
-Route::get('/detail/{id}', [ClientController::class,'detail'])->name('client.detail');
-Route::get('/berita', function () { return view('client.berita'); });
+Route::get('/detail-wisata/{id}', [ClientController::class,'detailWisata'])->name('client-wisata-detail');
+Route::get('/detail-berita/{id}', [ClientController::class,'detailBerita'])->name('client-berita-detail');
+
+// Load More
+Route::get('/wisata', [ClientController::class,'LoadWisata'])->name('client-wisata-index');
+Route::get('/berita', [ClientController::class,'LoadBerita'])->name('client-berita-index');
 
 Route::middleware([
     'auth:sanctum',

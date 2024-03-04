@@ -38,7 +38,7 @@ class BeritaController extends Controller
                 $namaFile = pathinfo($gambar->getClientOriginalName(), PATHINFO_FILENAME); // Dapatkan nama file tanpa ekstensi
                 $ekstensi = $gambar->getClientOriginalExtension(); // Dapatkan ekstensi file
                 $namaFileBaru = $namaFile . '_' . time() . '.' . $ekstensi; // Generate nama baru dengan timestamp untuk mencegah nama yang sama
-                $gambarPath = $gambar->storeAs('gambar', $namaFileBaru, 'public'); // Simpan file dengan nama baru
+                $gambarPath = $gambar->storeAs('berita', $namaFileBaru, 'public'); // Simpan file dengan nama baru
                 $gambarPaths[] = $namaFileBaru; // Simpan nama file baru ke dalam array
             }
         }

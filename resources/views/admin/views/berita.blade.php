@@ -43,8 +43,8 @@
                                     <td class="px-6 py-3">
                                         <div class="flex flex-row items-center gap-x-2">
                                             @if ($berita->gambar)
-                                                <img src="{{ asset('storage/gambar/' . $berita->gambar) }}"
-                                                    alt="Gambar Berita" style="max-width: 100px" class="rounded-full">
+                                                <img src="{{ asset('storage/berita/' . $berita->gambar) }}"
+                                                    alt="Gambar Berita">
                                             @else
                                                 Tidak Ada Gambar
                                             @endif
